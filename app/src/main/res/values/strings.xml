@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">NYTArticleSearch</string>
+    <string name="app_name">News Article Search</string>
+    <string name="searchButtonLabel">Search</string>
+    <string name="searchHint">Search...</string>
+    <string name="apiKey">65d83e7c1426475c869665ba4da529b3</string>
+    <string name="baseUrl">http://api.nytimes.com/svc/search/v2/</string>
 </resources>
