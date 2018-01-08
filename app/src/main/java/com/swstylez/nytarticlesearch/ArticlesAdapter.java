@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 /**
@@ -27,15 +29,15 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView articleImageView;
-        TextView blurbTextView;
+        ImageView thumbnailImageView;
+        TextView headlineTextView;
 
         public ViewHolder(View itemView) {
 
             super(itemView);
 
-            articleImageView = (ImageView) itemView.findViewById(R.id.articleImageView);
-            blurbTextView = (TextView) itemView.findViewById(R.id.subjecTextView);
+            thumbnailImageView = (ImageView) itemView.findViewById(R.id.thumbnailImageView);
+            headlineTextView = (TextView) itemView.findViewById(R.id.headlineTextView);
 
         }
 
@@ -45,9 +47,22 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Article article = articles.get(position);
-        TextView blurbTextView = holder.blurbTextView;
+        TextView headlineTextView = holder.headlineTextView;
+        ImageView thumbnailImageView = holder.thumbnailImageView;
+        String thumbnailPath = null;
 
-        blurbTextView.setText(article.getLeadParagraph());
+        for(Article.Thumbnail thumbnail : article.getMultimedia()) {
+            if(thumbnail.getSubtype().equals("thumbnail")) {
+                thumbnailPath = thumbnail.getUrl();
+                break;
+            }
+        }
+
+        headlineTextView.setText(article.getHeadline().getMain());
+
+        if( thumbnailPath != null ) {
+            Glide.with(context).load("http://www.nytimes.com/" + thumbnailPath).into(thumbnailImageView);
+        }
 
     }
 
